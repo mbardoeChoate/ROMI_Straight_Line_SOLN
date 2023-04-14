@@ -35,6 +35,8 @@ class Robot(TimedRobot):
     def autonomousPeriodic(self) -> None:
         self.drivestraight.run()
 
+    def autonomousExit(self) -> None:
+        self.drivetrain.resetEncoders()
 
 
 if __name__ == "__main__":
