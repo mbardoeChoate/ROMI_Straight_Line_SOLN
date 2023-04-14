@@ -14,7 +14,7 @@ class Robot(TimedRobot):
     def robotInit(self) -> None:
         self.drivetrain = Drivetrain()
         self.controller=Joystick(0)
-        self.drivestraight = DriveStraight(self.drivetrain, 2)
+        self.drivestraight = DriveStraight(self.drivetrain, .5)
 
     def robotPeriodic(self) -> None:
 
@@ -27,6 +27,7 @@ class Robot(TimedRobot):
         forward = self.controller.getRawAxis(0)
         rotate = self.controller.getRawAxis(1)
         self.drivetrain.arcadeDrive(rotate, forward)
+        print(f"Forward: {forward}, Rotate: {rotate}")
 
 
     def autonomousInit(self) -> None:
@@ -35,7 +36,11 @@ class Robot(TimedRobot):
     def autonomousPeriodic(self) -> None:
         self.drivestraight.run()
 
+    def autonomousExit(self) -> None:
+        self.drivetrain.resetEncoders()
 
+    def disabledInit(self) -> None:
+        pass
 
 if __name__ == "__main__":
     os.environ["HALSIMWS_HOST"] = "10.0.0.2"
