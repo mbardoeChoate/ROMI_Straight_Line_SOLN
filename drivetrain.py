@@ -40,3 +40,15 @@ class Drivetrain:
 
     def getRightDistanceMeter(self) -> float:
         return self.rightEncoder.getDistance()
+
+    def averageDistanceMeter(self) -> float:
+        return (self.getRightDistanceMeter()+self.getLeftDistanceMeter())/2.0
+
+    def arcadeDrive(self, rot: float, fwd: float) -> None:
+        """
+        Drives the robot using arcade controls.
+
+        :param fwd: the commanded forward movement
+        :param rot: the commanded rotation
+        """
+        self.drive.arcadeDrive(rot, fwd)
