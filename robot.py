@@ -2,45 +2,40 @@
 import os
 
 import wpilib
-from drivetrain import Drivetrain
-from drivestraight import DriveStraight
-from wpilib import Joystick, TimedRobot
+from wpilib import TimedRobot
+
+from robotcontainer import RobotContainer
+
 
 class Robot(TimedRobot):
 
-
-
-
     def robotInit(self) -> None:
-        self.drivetrain = Drivetrain()
-        self.controller=Joystick(0)
-        self.drivestraight = DriveStraight(self.drivetrain, .5)
+        self.container = RobotContainer()
 
     def robotPeriodic(self) -> None:
-
         ...
 
     def teleopInit(self) -> None:
         ...
 
     def teleopPeriodic(self) -> None:
-        forward = self.controller.getRawAxis(0)
-        rotate = self.controller.getRawAxis(1)
-        self.drivetrain.arcadeDrive(rotate, forward)
+        forward = self.container.controller.getRawAxis(0)
+        rotate = self.container.controller.getRawAxis(1)
+        self.container.drivetrain.arcadeDrive(rotate, forward)
         print(f"Forward: {forward}, Rotate: {rotate}")
 
-
     def autonomousInit(self) -> None:
-        ...
+        self.auto = self.container.get_autonomous()
 
     def autonomousPeriodic(self) -> None:
-        self.drivestraight.run()
+        self.auto.run()
 
     def autonomousExit(self) -> None:
-        self.drivetrain.resetEncoders()
+        self.container.drivetrain.resetGyro()
 
     def disabledInit(self) -> None:
         pass
+
 
 if __name__ == "__main__":
     os.environ["HALSIMWS_HOST"] = "10.0.0.2"
