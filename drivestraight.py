@@ -12,8 +12,8 @@ class DriveStraight:
         if self.drivetrain.averageDistanceMeter() > self.goal:
             self.drivetrain.arcadeDrive(0,0)
         else:
-            #rotate=difference*self.kp
-            rotate=0
+            rotate=difference*self.kp
+            #rotate=0
             forward=.4
             print(f"Fwd: {forward}, Rot: {rotate}  distance:{self.drivetrain.averageDistanceMeter()} difference:{difference}")
             self.drivetrain.arcadeDrive(rotate, forward)

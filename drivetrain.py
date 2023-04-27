@@ -3,6 +3,7 @@ import wpilib
 from wpilib.drive import DifferentialDrive
 import math
 from wpilib import Spark
+import romi
 class Drivetrain:
 
 
@@ -23,6 +24,11 @@ class Drivetrain:
             (math.pi * self.kWheelDiameterMeter) / self.kCountsPerRevolution
         )
         self.resetEncoders()
+
+        self.gyro=romi.RomiGyro()
+
+        self.accelerometer=wpilib.BuiltInAccelerometer()
+
 
     def resetEncoders(self) -> None:
         """Resets the drive encoders to currently read a position of 0."""
@@ -52,3 +58,16 @@ class Drivetrain:
         :param rot: the commanded rotation
         """
         self.drive.arcadeDrive(rot, fwd)
+
+    def getGyroAngleZ(self):
+        """
+        Give the twist of the robot
+        :return: the current twist angle in degrees
+        """
+
+        return self.gyro.getAngleZ()
+
+    def resetGyro(self):
+        """Resets the angles to all be 0."""
+
+        self.gyro.reset()
