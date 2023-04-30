@@ -21,7 +21,7 @@ class GyroTurn:
         atSetpoint=self.pid_controller.atSetpoint()
         position_error=self.pid_controller.getPositionError()
         velocity_error=self.pid_controller.getVelocityError()
-        print(f"{current_reading=}  {power=} {atSetpoint=} {position_error=} {velocity_error=}" )
+        print(f"{current_reading=:.2f}  {power=:.2f} {atSetpoint=} {position_error=:.2f} {velocity_error=:.2f}" )
         if not atSetpoint:
             self.drivetrain.arcadeDrive(power,0)
         else:
