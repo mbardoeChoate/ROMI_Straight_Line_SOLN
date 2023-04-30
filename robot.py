@@ -8,7 +8,6 @@ from robotcontainer import RobotContainer
 
 
 class Robot(TimedRobot):
-
     def robotInit(self) -> None:
         self.container = RobotContainer()
 

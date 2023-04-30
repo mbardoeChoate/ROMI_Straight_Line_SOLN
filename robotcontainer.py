@@ -7,7 +7,6 @@ from gyroturn import GyroTurn
 
 
 class RobotContainer:
-
     def __init__(self) -> None:
         self.controller = wpilib.Joystick(0)
         # Create SmartDashboard chooser for autonomous routines

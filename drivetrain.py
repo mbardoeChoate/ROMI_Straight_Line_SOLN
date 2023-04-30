@@ -1,17 +1,16 @@
-
 import wpilib
 from wpilib.drive import DifferentialDrive
 import math
 from wpilib import Spark, Encoder
 import romi
+
+
 class Drivetrain:
-
-
     def __init__(self):
         self.kCountsPerRevolution = 1440.0
         self.kWheelDiameterMeter = 0.07
-        self.left_motor=Spark(0)
-        self.right_motor=Spark(1)
+        self.left_motor = Spark(0)
+        self.right_motor = Spark(1)
         self.leftEncoder = Encoder(4, 5)
         self.rightEncoder = Encoder(6, 7)
         # Set up the differential drive controller
@@ -49,9 +48,13 @@ class Drivetrain:
         return self.rightEncoder.getDistance()
 
     def averageDistanceMeter(self) -> float:
-        return (self.getRightDistanceMeter()+self.getLeftDistanceMeter())/2.0
+        return (self.getRightDistanceMeter() + self.getLeftDistanceMeter()) / 2.0
 
-    def arcadeDrive(self, rot: float, fwd: float, ) -> None:
+    def arcadeDrive(
+        self,
+        rot: float,
+        fwd: float,
+    ) -> None:
         """
         Drives the robot using arcade controls.
 
