@@ -25,13 +25,17 @@ class Robot(TimedRobot):
         print(f"Forward: {forward}, Rotate: {rotate}")
 
     def autonomousInit(self) -> None:
+        self.container.drivetrain.resetEncoders()
+        self.container.drivetrain.resetGyro()
         self.auto = self.container.get_autonomous()
+
 
     def autonomousPeriodic(self) -> None:
         self.auto.run()
 
     def autonomousExit(self) -> None:
         self.container.drivetrain.resetGyro()
+        self.auto.reset()
 
     def disabledInit(self) -> None:
         pass
