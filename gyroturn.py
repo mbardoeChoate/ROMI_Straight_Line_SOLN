@@ -1,8 +1,9 @@
 from drivetrain import Drivetrain
 from wpimath.controller import PIDController
+from autoroutine import AutoRoutine
 
 
-class GyroTurn:
+class GyroTurn(AutoRoutine):
     def __init__(self, drivetrain: Drivetrain, angle: float):
         self.angle = angle
         self.drivetrain = drivetrain
