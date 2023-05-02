@@ -1,3 +1,4 @@
+import wpilib
 from wpimath.controller import PIDController
 
 from autoroutine import AutoRoutine
@@ -10,10 +11,10 @@ class DriveStraight(AutoRoutine):
         self.goal = goal_in_meters
         self.pid_controller_direc = PIDController(20, 0, 0)
         self.pid_controller_direc.setSetpoint(0)
-        self.pid_controller_direc.setTolerance(.05)
-        self.pid_controller_dist = PIDController(5 / (2 * goal_in_meters), 0, 0)
+        self.pid_controller_direc.setTolerance(.005)
+        self.pid_controller_dist = PIDController(40 / (7 * goal_in_meters), 0, 0)
         self.pid_controller_dist.setSetpoint(goal_in_meters)
-        self.pid_controller_dist.setTolerance(.05)
+        self.pid_controller_dist.setTolerance(.01)
 
 
 
@@ -25,8 +26,10 @@ class DriveStraight(AutoRoutine):
         if self.pid_controller_direc.atSetpoint():
             rotate = 0
         forward = self.pid_controller_dist.calculate(distance)
+        forward = max(-.5, min(forward, .5))
         if self.pid_controller_dist.atSetpoint():
             self.drivetrain.arcadeDrive(0, 0)
         else:
-            print(f"{forward=} {rotate=} {distance=} {difference=}")
+            print(f"{forward=:.2f} {rotate=:.2f} {distance=:.2f} {difference=:.4f}")
             self.drivetrain.arcadeDrive(rotate, forward)
+        wpilib.SmartDashboard.putNumber("Distance", distance)
